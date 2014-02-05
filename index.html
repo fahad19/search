@@ -18,20 +18,22 @@
 	<body ng-app="BowerComponents" ng-controller="IndexController">
 		<header>
 			<div class="container">
-				<div class="col-md-12">
-					<h1>
-						Bower Packages
-					</h1>
+				<div class="row">
+					<div class="col-md-12">
+						<h1>
+							Bower Packages
+						</h1>
 
-					<div class="logo">
-						<a href="http://bower.io/">
-							<img src="http://bower.io/img/bower-logo.png" alt="bower logo">
-						</a>
+						<div class="logo">
+							<a href="http://bower.io/">
+								<img src="http://bower.io/img/bower-logo.png" alt="bower logo">
+							</a>
+						</div>
+
+						<p>Instantly search Bower packages!</p>
+
+						<input id="q" type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'" />
 					</div>
-
-					<p>Instantly search Bower packages!</p>
-
-					<input id="q" type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'" />
 				</div>
 			</div>
 		</header>
