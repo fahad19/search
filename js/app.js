@@ -41,7 +41,7 @@
 			$scope.pagesCount = 1;
 
 			// matchers
-			var matchesByName = function(item) {
+			var matchesByName = function (item) {
 				if (item.name.indexOf($scope.qParams.keyword.toLowerCase()) > -1) {
 					return true;
 				}
@@ -49,7 +49,7 @@
 				return false;
 			};
 
-			var matchesByKeyword = function(item) {
+			var matchesByKeyword = function (item) {
 				if (_.isArray(item.keywords) && item.keywords.length > 0) {
 					for (var k in item.keywords) {
 						var keyword = item.keywords[k];
@@ -62,7 +62,7 @@
 				return false;
 			};
 
-			var matchesByOwner = function(item) {
+			var matchesByOwner = function (item) {
 				if (!$scope.qParams.owner || $scope.qParams.owner.length === 0) {
 					return true;
 				}
@@ -77,7 +77,7 @@
 			};
 
 			// queries
-			var find = function() {
+			var find = function () {
 				matchedResults = _.filter(items, function(item) {
 					if ($scope.q.length === 0) {
 						return true;
@@ -91,7 +91,7 @@
 				});
 			};
 
-			var sort = function() {
+			var sort = function () {
 				matchedResults = _.sortBy(matchedResults, function(item) {
 					return item[$scope.sortField];
 				});
@@ -101,18 +101,18 @@
 				}
 			};
 
-			var limit = function() {
+			var limit = function () {
 				var from = ($scope.page - 1) * $scope.limit;
 				$scope.results = _.clone(matchedResults).splice(from, $scope.limit);
 			};
 
-			var count = function() {
+			var count = function () {
 				$scope.count = matchedResults.length;
 				$scope.pagesCount = Math.ceil($scope.count / $scope.limit);
 			};
 
 			// search
-			$scope.search = function() {
+			$scope.search = function () {
 				if ($scope.loading) {
 					return false;
 				}
@@ -145,7 +145,7 @@
 				count();
 			};
 
-			$scope.sortResults = function(field) {
+			$scope.sortResults = function (field) {
 				if ($scope.sortField === field) {
 					$scope.sortReverse = !$scope.sortReverse;
 				} else {
@@ -157,14 +157,14 @@
 				limit();
 			};
 
-			$scope.goToPrev = function() {
+			$scope.goToPrev = function () {
 				if ($scope.hasPrev()) {
 					$scope.page--;
 					limit();
 				}
 			};
 
-			$scope.goToNext = function() {
+			$scope.goToNext = function () {
 				if ($scope.hasNext()) {
 					$scope.page++;
 					limit();
@@ -172,7 +172,7 @@
 			};
 
 			// checkers
-			$scope.hasPrev = function() {
+			$scope.hasPrev = function () {
 				if ($scope.page === 1) {
 					return false;
 				}
@@ -180,7 +180,7 @@
 				return true;
 			};
 
-			$scope.hasNext = function() {
+			$scope.hasNext = function () {
 				if ($scope.page === $scope.pagesCount) {
 					return false;
 				}
@@ -189,7 +189,7 @@
 			};
 
 			// formatters
-			$scope.formatDate = function(timestamp) {
+			$scope.formatDate = function (timestamp) {
 				var date = new Date((timestamp || '').replace(/-/g,'/').replace(/[TZ]/g,' '));
 				var diff = (((new Date()).getTime() - date.getTime()) / 1000);
 				var dayDiff = Math.floor(diff / 86400);
@@ -210,7 +210,7 @@
 			};
 
 			// key bindings for prev/next
-			angular.element($window).on('keydown', function(e) {
+			angular.element($window).on('keydown', function (e) {
 				if (typeof document.activeElement.id !== 'undefined' && document.activeElement.id === 'q') {
 					return true;
 				}
@@ -235,7 +235,7 @@
 			$scope.loadingError = false;
 
 			var promise = $http.get(API_URL);
-			promise.then(function(res) {
+			promise.then(function (res) {
 				if (res.status !== 200) {
 					$scope.loadingError = true;
 					return false;

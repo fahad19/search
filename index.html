@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -10,7 +10,7 @@
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="bower.io/search">
 		<meta property="og:image" content="http://bower.io/img/bower-logo.png">
-		<title>Bower components</title>
+		<title>Bower Packages</title>
 
 		<link href="./dist/app.css" rel="stylesheet">
 	</head>
@@ -20,16 +20,16 @@
 			<div class="container">
 				<div class="col-md-12">
 					<h1>
-						Bower Components
+						Bower Packages
 					</h1>
 
 					<div class="logo">
 						<a href="http://bower.io/">
-							<img src="http://bower.io/img/bower-logo.png" alt="">
+							<img src="http://bower.io/img/bower-logo.png" alt="bower logo">
 						</a>
 					</div>
 
-					<p>Instantly search Bower components!</p>
+					<p>Instantly search Bower packages!</p>
 
 					<input id="q" type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'" />
 				</div>
@@ -45,7 +45,6 @@
 								<th><a ng-click="sortResults('name')">Name</a></th>
 								<th class="hidden-xs"><a ng-click="sortResults('owner')">Owner</a></th>
 								<th class="hidden-xs"><a ng-click="sortResults('stars')">Stars</a></th>
-								<th class="hidden-xs"><a ng-click="sortResults('forks')">Forks</a></th>
 								<th class="hidden-xs"><a ng-click="sortResults('updated')">Updated</a></th>
 							</thead>
 							<tbody>
@@ -69,7 +68,6 @@
 									</td>
 									<td class="hidden-xs owner">{{result.owner}}</td>
 									<td class="hidden-xs stars">{{result.stars}}</td>
-									<td class="hidden-xs forks">{{result.forks}}</td>
 									<td class="hidden-xs updated">{{formatDate(result.updated)}}</td>
 								</tr>
 							</tbody>
@@ -109,7 +107,7 @@
 		<a href="https://github.com/bower/search"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 		<script src="./dist/app.js"></script>
-		<script>var _gaq=[['_setAccount','UA-25562592-3'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+		<script>var _gaq=[['_setAccount','UA-43531210-2'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
 	</body>
 </html>
 

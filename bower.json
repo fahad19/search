@@ -2,8 +2,8 @@
   "name": "bower-components",
   "version": "0.0.0",
   "dependencies": {
-    "bootstrap": "3.0.3",
-    "angular": "1.2.10",
-    "underscore": "1.5.2"
+    "bootstrap": "~3.1.0",
+    "angular": "~1.2.11",
+    "lodash": "~2.4.1"
   }
 }

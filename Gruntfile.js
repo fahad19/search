@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 				options: {
 					paths: [
 						'css',
-						'vendors'
+						'bower_components'
 					]
 				},
 				files: {
@@ -32,8 +32,8 @@ module.exports = function (grunt) {
 		concat: {
 			app: {
 				src: [
-					'vendors/angular/angular.js',
-					'vendors/underscore/underscore.js',
+					'bower_components/angular/angular.js',
+					'bower_components/lodash/dist/lodash.js',
 					'js/app.js'
 				],
 				dest: 'dist/app.js'
