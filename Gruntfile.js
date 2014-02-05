@@ -16,6 +16,12 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		autoprefixer: {
+			app: {
+				src: 'dist/app.css',
+				dest: 'dist/app.css'
+			}
+		},
 		cssmin: {
 			app: {
 				files: {
@@ -71,6 +77,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -78,9 +85,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.registerTask('default', [
-		'less:app',
 		'jshint:app',
 		'concat:app',
+		'less:app',
+		'autoprefixer:app',
 		'cssmin:app',
 		'uglify:app'
 	]);
