@@ -77,8 +77,8 @@
 			};
 
 			// queries
-			var find = function () {
-				matchedResults = _.filter(items, function(item) {
+			var find = function (items) {
+				return _.filter(items, function(item) {
 					if ($scope.q.length === 0) {
 						return true;
 					}
@@ -91,7 +91,7 @@
 				});
 			};
 
-			var sort = function () {
+			var sort = function (matchedResults) {
 				matchedResults = _.sortBy(matchedResults, function(item) {
 					return item[$scope.sortField];
 				});
@@ -99,16 +99,20 @@
 				if ($scope.sortReverse) {
 					matchedResults = matchedResults.reverse();
 				}
+
+				return matchedResults;
 			};
 
-			var limit = function () {
+			var limit = function (matchedResults) {
 				var from = ($scope.page - 1) * $scope.limit;
-				$scope.results = _.clone(matchedResults).splice(from, $scope.limit);
+				return _.clone(matchedResults).splice(from, $scope.limit);
 			};
 
-			var count = function () {
+			var count = function (matchedResults) {
 				$scope.count = matchedResults.length;
 				$scope.pagesCount = Math.ceil($scope.count / $scope.limit);
+
+				return $scope.count;
 			};
 
 			// search
@@ -139,10 +143,10 @@
 					q: $scope.q
 				});
 
-				find();
-				sort();
-				limit();
-				count();
+				matchedResults = find(items);
+				matchedResults = sort(matchedResults);
+				$scope.results = limit(matchedResults);
+				count(matchedResults);
 			};
 
 			$scope.sortResults = function (field) {
@@ -153,21 +157,21 @@
 				}
 
 				$scope.sortField = field;
-				sort();
-				limit();
+				matchedResults = sort(matchedResults);
+				$scope.results = limit(matchedResults);
 			};
 
 			$scope.goToPrev = function () {
 				if ($scope.hasPrev()) {
 					$scope.page--;
-					limit();
+					$scope.results = limit(matchedResults);
 				}
 			};
 
 			$scope.goToNext = function () {
 				if ($scope.hasNext()) {
 					$scope.page++;
-					limit();
+					$scope.results = limit(matchedResults);
 				}
 			};
 
