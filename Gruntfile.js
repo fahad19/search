@@ -3,42 +3,89 @@ module.exports = function (grunt) {
 	'use strict';
 
 	grunt.initConfig({
-		concat: {
-			'dist/main.js': [
-				'bower_components/jquery/jquery.js',
-				'bower_components/jquery-timeago/jquery.timeago.js',
-				'bower_components/lodash/dist/lodash.js',
-				'js/vendor/list.js',
-				'js/vendor/list.paging.js',
-				'js/main.js'
-			]
-		},
-		uglify: {
-			all: {
+		less: {
+			app: {
+				options: {
+					paths: [
+						'css',
+						'vendors'
+					]
+				},
 				files: {
-					'dist/main.js': ['dist/main.js']
+					'dist/app.css': 'css/app.less'
+				}
+			}
+		},
+		cssmin: {
+			app: {
+				files: {
+					'dist/app.css': ['dist/app.css']
 				}
 			}
 		},
 		jshint: {
-			files: ['js/*.js'],
 			options: {
 				jshintrc: '.jshintrc'
+			},
+			app: ['js/*.js']
+		},
+		concat: {
+			app: {
+				src: [
+					'vendors/angular/angular.js',
+					'vendors/underscore/underscore.js',
+					'js/app.js'
+				],
+				dest: 'dist/app.js'
+			}
+		},
+		uglify: {
+			options: {
+				mangle: false
+			},
+			app: {
+				files: {
+					'dist/app.js': ['dist/app.js']
+				}
+			}
+		},
+		connect: {
+			app: {
+				options: {
+					port: 9001,
+					base: '.',
+					keepalive: true
+				}
 			}
 		},
 		watch: {
-			all: {
-				files: ['js/*.js'],
+			app: {
+				files: [
+					'css/app.less',
+					'js/app.js'
+				],
 				tasks: ['default']
 			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 
-	grunt.registerTask('default', ['concat']);
-	grunt.registerTask('minify', ['concat', 'uglify']);
+	grunt.registerTask('default', [
+		'less:app',
+		'jshint:app',
+		'concat:app',
+		'cssmin:app',
+		'uglify:app'
+	]);
+	grunt.registerTask('serve', [
+		'default',
+		'connect:app',
+	]);
 };

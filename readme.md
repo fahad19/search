@@ -10,6 +10,13 @@ It usually takes an hour for new components to show up on the site.
 
 *Issues regarding packages should be reported on the [Bower repo](https://github.com/bower/bower/issues/new).*
 
+## Using
+
+    $ npm install
+    $ bower install
+    $ grunt serve
+
+Open http://localhost:9001 in your browser.
 
 ## License
 
