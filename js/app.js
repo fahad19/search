@@ -61,6 +61,10 @@
 			$scope.leftKey = LEFT_KEY;
 			$scope.rightKey = RIGHT_KEY;
 
+			$scope.loading = true;
+			$scope.loadingError = false;
+			$scope.hasResults = false;
+
 			// data
 			var items = [];
 
@@ -153,7 +157,13 @@
 
 			var limit = function (matchedResults) {
 				var from = ($scope.page - 1) * $scope.limit;
-				return _.clone(matchedResults).splice(from, $scope.limit);
+				var list = _.clone(matchedResults).splice(from, $scope.limit);
+				if (list.length) {
+					$scope.hasResults = true;
+				} else {
+					$scope.hasResults = false;
+				}
+				return list;
 			};
 
 			var count = function (matchedResults) {
@@ -241,8 +251,6 @@
 			};
 
 			// init
-			$scope.loading = true;
-			$scope.loadingError = false;
 			$http.get(API_URL).then(function (res) {
 				if (res.status !== 200) {
 					$scope.loadingError = true;

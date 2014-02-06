@@ -41,7 +41,7 @@
 		<section ng-cloak>
 			<div class="container">
 				<div class="row">
-					<div ng-show="!loading && results.length" class="col-md-12">
+					<div ng-show="hasResults" class="col-md-12">
 						<table class="table table-hover">
 							<thead>
 								<th><a ng-click="sortResults('name')">Name</a></th>
@@ -76,12 +76,12 @@
 						</table>
 					</div>
 
-					<ul ng-show="!loading && results.length" class="pager">
+					<ul ng-show="hasResults" class="pager">
 						<li ng-class="{disabled: !hasPrev()}"><a shortcut="{{leftKey}}" ng-click="goToPrev()">&larr; Previous</a></li>
 						<li ng-class="{disabled: !hasNext()}"><a shortcut="{{rightKey}}" ng-click="goToNext()">Next &rarr;</a></li>
 					</ul>
 
-					<div ng-show="!loading && results.length" class="pager-info">
+					<div ng-show="hasResults" class="pager-info">
 						{{count}} matched results. Showing page {{page}} of {{pagesCount}}.
 					</div>
 
