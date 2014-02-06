@@ -32,12 +32,34 @@
 		};
 	});
 
+	module.directive('shortcut', [
+		'$document',
+		function ($document) {
+			return {
+				link: function (scope, element, attrs) {
+					attrs.$observe('shortcut', function(value) {
+						var keycode = parseInt(value, 10);
+						$document.on('keydown', function (e) {
+							if (e.keyCode !== keycode) {
+								return;
+							}
+
+							element.triggerHandler('click');
+						});
+					});
+				}
+			};
+		}
+	]);
+
 	module.controller('IndexController', [
 		'$scope',
 		'$http',
 		'$location',
-		'$window',
-		function ($scope, $http, $location, $window) {
+		function ($scope, $http, $location) {
+
+			$scope.leftKey = LEFT_KEY;
+			$scope.rightKey = RIGHT_KEY;
 
 			// data
 			var items = [];
@@ -217,27 +239,6 @@
 
 				return true;
 			};
-
-			// key bindings for prev/next
-			angular.element($window).on('keydown', function (e) {
-				if (typeof document.activeElement.id !== 'undefined' && document.activeElement.id === 'q') {
-					return true;
-				}
-
-				if (e.keyCode === LEFT_KEY) {
-					if (!$scope.$$phase) {
-						$scope.$apply(function() {
-							$scope.goToPrev();
-						});
-					}
-				} else if (e.keyCode === RIGHT_KEY) {
-					if (!$scope.$$phase) {
-						$scope.$apply(function() {
-							$scope.goToNext();
-						});
-					}
-				}
-			});
 
 			// init
 			$scope.loading = true;
