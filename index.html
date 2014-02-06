@@ -65,7 +65,7 @@
 										<p class="visible-xs">
 											<span class="label">Owner: {{result.owner}}</span>
 											<span class="label">Stars: {{result.stars}}</span>
-											<span class="label">Updated: {{formatDate(result.updated)}}</span>
+											<span class="label">Updated: {{result.updated | formatDate}}</span>
 										</p>
 									</td>
 									<td class="hidden-xs owner">{{result.owner}}</td>
