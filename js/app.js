@@ -4,6 +4,10 @@
 
 	var API_URL = 'https://bower-component-list.herokuapp.com';
 
+	var LEFT_KEY = 37;
+
+	var RIGHT_KEY = 39;
+
 	var module = angular.module('BowerComponents', []);
 
 	module.filter('formatDate', function () {
@@ -220,13 +224,13 @@
 					return true;
 				}
 
-				if (e.keyCode === 37) {
+				if (e.keyCode === LEFT_KEY) {
 					if (!$scope.$$phase) {
 						$scope.$apply(function() {
 							$scope.goToPrev();
 						});
 					}
-				} else if (e.keyCode === 39) {
+				} else if (e.keyCode === RIGHT_KEY) {
 					if (!$scope.$$phase) {
 						$scope.$apply(function() {
 							$scope.goToNext();
@@ -238,9 +242,7 @@
 			// init
 			$scope.loading = true;
 			$scope.loadingError = false;
-
-			var promise = $http.get(API_URL);
-			promise.then(function (res) {
+			$http.get(API_URL).then(function (res) {
 				if (res.status !== 200) {
 					$scope.loadingError = true;
 					return false;
