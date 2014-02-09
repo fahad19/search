@@ -9,12 +9,17 @@ module.exports = function (App) {
 				link: function (scope, element, attrs) {
 					attrs.$observe('shortcut', function(value) {
 						var keycode = parseInt(value, 10);
-						$document.on('keydown', function (e) {
+						var handler = function (e) {
 							if (e.keyCode !== keycode) {
 								return;
 							}
 
 							element.triggerHandler('click');
+						};
+						$document.on('keydown', handler);
+
+						scope.$on('$destroy', function () {
+							$document.unbind('keydown', handler);
 						});
 					});
 				}
