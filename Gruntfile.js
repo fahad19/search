@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 				options: {
 					paths: [
 						'css',
-						'bower_components'
+						'node_modules'
 					]
 				},
 				files: {
@@ -35,14 +35,13 @@ module.exports = function (grunt) {
 			},
 			app: ['js/*.js']
 		},
-		concat: {
+		browserify: {
 			app: {
-				src: [
-					'bower_components/angular/angular.js',
-					'bower_components/lodash/dist/lodash.js',
-					'js/app.js'
-				],
-				dest: 'dist/app.js'
+				files: {
+					'dist/app.js': [
+						'js/index.js'
+					]
+				}
 			}
 		},
 		uglify: {
@@ -80,13 +79,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-browserify');
 
 	grunt.registerTask('default', [
 		'jshint:app',
-		'concat:app',
+		'browserify:app',
 		'less:app',
 		'autoprefixer:app',
 		'cssmin:app',
