@@ -13,7 +13,6 @@ It usually takes an hour for new components to show up on the site.
 ## Using
 
     $ npm install
-    $ bower install
     $ grunt serve
 
 Open http://localhost:9001 in your browser.
