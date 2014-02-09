@@ -20,17 +20,15 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1>
-							Bower Packages
-						</h1>
-
 						<div class="logo">
 							<a href="http://bower.io/">
 								<img src="http://bower.io/img/bower-logo.png" alt="bower logo">
 							</a>
 						</div>
 
-						<p>Instantly search Bower packages!</p>
+						<h1>
+							Search Bower Packages
+						</h1>
 
 						<input id="q" type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'">
 					</div>
@@ -42,7 +40,7 @@
 			<div class="container">
 				<div class="row">
 					<div ng-show="hasResults" class="col-md-12">
-						<table class="table table-hover">
+						<table class="table table-hover search-results">
 							<thead>
 								<th><a ng-click="sortResults('name')">Name</a></th>
 								<th class="hidden-xs"><a ng-click="sortResults('owner')">Owner</a></th>
@@ -108,7 +106,7 @@
 
 		<a href="https://github.com/bower/search"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
-		<script src="./dist/app.js"></script>
+		<script src="dist/app.js"></script>
 		<script>var _gaq=[['_setAccount','UA-43531210-2'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
 	</body>
 </html>

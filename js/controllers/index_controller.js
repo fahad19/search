@@ -14,39 +14,31 @@ module.exports = function (App) {
 		'$location',
 		function ($scope, $http, $location) {
 
-			$scope.leftKey = LEFT_KEY;
+			$scope.leftKey  = LEFT_KEY;
 			$scope.rightKey = RIGHT_KEY;
 
-			$scope.loading = true;
+			$scope.loading      = true;
 			$scope.loadingError = false;
-			$scope.hasResults = false;
+			$scope.hasResults   = false;
 
 			// data
-			var items = [];
-
+			var items          = [];
 			var matchedResults = [];
-
-			$scope.results = [];
+			$scope.results     = [];
 
 			// pagination
-			$scope.q = '';
-
+			$scope.q       = '';
 			$scope.qParams = {
 				keyword: '',
 				owner: null
 			};
 
-			$scope.sortField = 'stars';
-
+			$scope.sortField   = 'stars';
 			$scope.sortReverse = true;
-
-			$scope.limit = 30;
-
-			$scope.page = 1;
-
-			$scope.count = 0;
-
-			$scope.pagesCount = 1;
+			$scope.limit       = 30;
+			$scope.page        = 1;
+			$scope.count       = 0;
+			$scope.pagesCount  = 1;
 
 			// matchers
 			var matchesByName = function (item) {
@@ -59,12 +51,11 @@ module.exports = function (App) {
 
 			var matchesByKeyword = function (item) {
 				if (_.isArray(item.keywords) && item.keywords.length > 0) {
-					for (var k in item.keywords) {
-						var keyword = item.keywords[k];
+					item.keywords.forEach(function (keyword) {
 						if (keyword.toLowerCase().indexOf($scope.qParams.keyword.toLowerCase()) > -1) {
 							return true;
 						}
-					}
+					});
 				}
 
 				return false;
@@ -100,33 +91,24 @@ module.exports = function (App) {
 			};
 
 			var sort = function (matchedResults) {
-				matchedResults = _.sortBy(matchedResults, function(item) {
+				var list = _.sortBy(matchedResults, function(item) {
 					return item[$scope.sortField];
 				});
 
 				if ($scope.sortReverse) {
-					matchedResults = matchedResults.reverse();
+					list = list.reverse();
 				}
 
-				return matchedResults;
+				return list;
 			};
 
 			var limit = function (matchedResults) {
 				var from = ($scope.page - 1) * $scope.limit;
-				var list = _.clone(matchedResults).splice(from, $scope.limit);
-				if (list.length) {
-					$scope.hasResults = true;
-				} else {
-					$scope.hasResults = false;
-				}
+				var to   = from + $scope.limit;
+				var list = matchedResults.slice(from, to);
+
+				$scope.hasResults = list.length > 0;
 				return list;
-			};
-
-			var count = function (matchedResults) {
-				$scope.count = matchedResults.length;
-				$scope.pagesCount = Math.ceil($scope.count / $scope.limit);
-
-				return $scope.count;
 			};
 
 			// search
@@ -136,16 +118,14 @@ module.exports = function (App) {
 				}
 
 				var keywords = [];
-				var owner = null;
-				var qSplit = $scope.q.split(' ');
-				for (var k in qSplit) {
-					var v = qSplit[k];
+				var owner    = null;
+				$scope.q.split(' ').forEach(function (v) {
 					if (v.indexOf('owner:') === 0) {
 						owner = v.replace('owner:', '');
 					} else {
 						keywords.push(v);
 					}
-				}
+				});
 
 				$scope.qParams = {
 					keyword: keywords.join(' '),
@@ -160,19 +140,16 @@ module.exports = function (App) {
 				matchedResults = find(items);
 				matchedResults = sort(matchedResults);
 				$scope.results = limit(matchedResults);
-				count(matchedResults);
+
+				$scope.count      = matchedResults.length;
+				$scope.pagesCount = Math.ceil($scope.count / $scope.limit);
 			};
 
 			$scope.sortResults = function (field) {
-				if ($scope.sortField === field) {
-					$scope.sortReverse = !$scope.sortReverse;
-				} else {
-					$scope.sortReverse = false;
-				}
-
-				$scope.sortField = field;
-				matchedResults = sort(matchedResults);
-				$scope.results = limit(matchedResults);
+				$scope.sortReverse = ($scope.sortField === field) ? !$scope.sortReverse : false;
+				$scope.sortField   = field;
+				matchedResults     = sort(matchedResults);
+				$scope.results     = limit(matchedResults);
 			};
 
 			$scope.goToPrev = function () {
@@ -191,19 +168,11 @@ module.exports = function (App) {
 
 			// checkers
 			$scope.hasPrev = function () {
-				if ($scope.page === 1) {
-					return false;
-				}
-
-				return true;
+				return $scope.page !== 1;
 			};
 
 			$scope.hasNext = function () {
-				if ($scope.page === $scope.pagesCount) {
-					return false;
-				}
-
-				return true;
+				return $scope.page !== $scope.pagesCount;
 			};
 
 			// init
@@ -213,7 +182,7 @@ module.exports = function (App) {
 					return false;
 				}
 
-				items = res.data;
+				items          = res.data;
 				$scope.loading = false;
 
 				var urlParams = $location.search();

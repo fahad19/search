@@ -67,7 +67,7 @@ module.exports = function (grunt) {
 			app: {
 				files: [
 					'css/app.less',
-					'js/app.js'
+					'js/**/*.js'
 				],
 				tasks: ['default']
 			}
