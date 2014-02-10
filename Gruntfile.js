@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 				options: {
 					paths: [
 						'css',
-						'node_modules'
+						'bower_components'
 					]
 				},
 				files: {

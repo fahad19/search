@@ -2,8 +2,8 @@
 (function (window) {
 	'use strict';
 
-	window.angular = require('../node_modules/angular/index-browserify');
-	window._       = require('../node_modules/lodash/dist/lodash');
+	require('../bower_components/angular/angular');
+	window._ = require('../bower_components/lodash/dist/lodash');
 
 	require('./config/bootstrap');
 
